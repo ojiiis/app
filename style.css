@@ -43,10 +43,14 @@ body {
 }
 
 #earn{
- padding:20px 10px;
+ padding:30px;
  background-color:lightgreen;
  border-radius:10px;
+ margin-bottom: 20px;
 }
+#earn:last-child{
+    margin-bottom: 0px;
+   }
 #return {
     width:100%;
     margin:10px 0;
@@ -120,6 +124,6 @@ margin:auto;
 
 
 .center-content{  display:flex;  flex-direction:column;  justify-content:center;  align-items:center;}
-#ref-link{  width:100%;  margin-top:20px;  border:1px solid lightgreen;}
+#ref-link{  width:99%; overflow:hidden; margin-top:20px;  border:1px solid lightgreen;}
 #ref-link input{  width:73%;  border:none;  outline:0;  padding:2.5%;}
 #ref-link button{  width:22%;  border:none;  outline:0;  padding:2.5%;  background:lightgreen;  color:#f7f7f7;}
