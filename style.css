@@ -176,3 +176,7 @@ margin-top: 20px;
  #form-wrapper #logo{
 margin-bottom: 40px;
  }
+
+ #form-wrapper #logo img{
+    width:100px;
+     }
