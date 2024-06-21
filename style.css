@@ -138,10 +138,41 @@ margin:auto;
     justify-content: center;
     align-items: center;
     background: lightgreen;
+    overflow: hidden;
 }
 
 #form-wrapper{
     width: 80%;
     min-height: 300px;
-   
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }
+#form-wrapper span, #form-wrapper input{
+   display: block;
+   padding: 1%;
+   width: 96%;
+}
+#form-wrapper input{
+    margin-bottom: 10px;
+ }
+ #form-wrapper button{
+    width: 99%;
+    padding:2%;
+    border:none;
+    outline:0;
+    background: #303030;
+    color:#f7f7f7;
+    border-radius:5px;
+    margin-top:20px;
+ }
+
+ #form-wrapper a{
+display:block;
+margin-top: 20px;
+ }
+
+ #form-wrapper #logo{
+margin-bottom: 40px;
+ }
