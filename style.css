@@ -5,6 +5,9 @@
     color:#303030;
     font-family:arial;
 }
+a{
+    text-decoration: none;
+}
 body {
     width:100vw;
     height:100%;
@@ -127,3 +130,18 @@ margin:auto;
 #ref-link{  width:99%; overflow:hidden; margin-top:20px;  border:1px solid lightgreen;}
 #ref-link input{  width:73%;  border:none;  outline:0;  padding:2.5%;}
 #ref-link button{  width:22%;  border:none;  outline:0;  padding:2.5%;  background:lightgreen;  color:#f7f7f7;}
+
+#login-wrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightgreen;
+}
+
+#form-wrapper{
+    width: 80%;
+    min-height: 300px;
+   
+}
