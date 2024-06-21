@@ -51,4 +51,4 @@ function animateAdd(x){
 var balance = 56100
  
  document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
-    
+    }    
