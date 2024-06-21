@@ -1,5 +1,5 @@
 window.onload = function(){
-alert("hi");
+
 var tapAni = false;
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
