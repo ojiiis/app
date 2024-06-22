@@ -52,7 +52,9 @@ function animateAdd(x){
  
 
 
-
+if(window.location){
+alert(window.location);
+}
 var balance = 56100
 var energy = 1000
  document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
