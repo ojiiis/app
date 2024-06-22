@@ -26,7 +26,7 @@
          
        <div id="app-content">
          <div id="header"> 
-          <div>Lion</div>
+          <div id="username"></div>
           <div><a href="signin.html">Logout</a></div>
          </div>
          <div id="earn">
@@ -34,13 +34,13 @@
              <h1><img src="img/logo.png" style="width:25px;"> <span id="bal"></span></h1>
          </div>
          <div id="return">
-          <small>Return Per Hour <img src="img/logo-b.png" width="20px">5,790</small>
+          <small>Return Per Hour <img src="img/logo-b.png" width="20px"> <span id="rph"></span></small>
          </div>
          
          <div>
              <div id="level-head">
                  <div>Starter </div>
-                 <div>Level <b>1/50</b></div>
+                 <div>Level <b><span id="user-level"></span>/50</b></div>
              </div>
              <div id="level">
                  <div id="level-bar"></div>
@@ -57,7 +57,7 @@
         
          <div id="app-energy">
             <div>Boost </div>
-            <div>Energy <b><span id="energy"></span>/1,000</b></div>
+            <div>Energy <b><span id="energy-used"></span>/<span id="energy"></span></b></div>
         </div>
          
       </div>

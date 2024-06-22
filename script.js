@@ -20,15 +20,21 @@ var aniTap = setInterval(function(){
         clearInterval(aniTap);
         var aA = document.createElement("div");
         aA.classList.add("add-coin");
-        aA.innerText = "+23";
+        aA.innerText = `+${perClick}`;
         tap.appendChild(aA);
         animateAdd(aA);
-        balance += 23;
+        balance += perClick;
         document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
         tapAni = false;
         moved = 270;
         energy -= 5;
         document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
+       var body = new FormData();
+       body.append("data",`${balance},${energy}`);
+        fetch("https://doksocial.co/coin/tapped",{
+            method:"POST",
+            body:body
+        }).then(r=>r.text()).then(r=>console.log(r));
     } 
     }
     
@@ -51,16 +57,25 @@ function animateAdd(x){
     },20);
 }
  
-
+var balance = 0;
+var energy = 0;
+var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
 if(parser.pathname == "/"){
    fetch("https://doksocial.co/coin/app").then(r=>r.json()).then(r=>{
     if(r.status){
-    var balance = r.result.balance;
-    var energy = r.result.energy;
+        
+        balance = r.result.balance;
+        energy = r.result.energy;
+        perClick = r.result.per_click;
      document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
      document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
+     document.getElementById("energy-used").innerText = new Intl.NumberFormat().format(r.result.energy_used);
+     document.getElementById("rph").innerText = new Intl.NumberFormat().format(r.result.rph);
+     document.getElementById("user-level").innerText = r.result.level;
+     document.getElementById("username").innerText = r.result.username;
+     
     }else{
         location = "signin.html";
     }
