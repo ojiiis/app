@@ -37,6 +37,15 @@ body {
     justify-content:space-around;
     align-items:center;
 }
+#app-footer a{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items:center;
+}
+#app-footer a span{
+   font-size:.8rem;
+}
 #header{
     width:100%;
     display:flex;
