@@ -1,6 +1,7 @@
 window.onload = function(){
 
 var tapAni = false;
+if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
 return;
@@ -36,7 +37,7 @@ var aniTap = setInterval(function(){
 },20);
  
 });
-  
+}
 
 function animateAdd(x){
    var limit = Math.floor((Math.random() * 150) + 40), s = 0;
@@ -51,14 +52,21 @@ function animateAdd(x){
 }
  
 
-
-if(window.location){
-alert(window.location);
+var parser = document.createElement("a"); 
+parser.href = window.location.href;
+if(parser.pathname == "/"){
+   fetch("https://doksocial.co/coin").then(r=>r.json()).then(r=>{
+    if(r.status){
+    var balance = r.result.balance;
+    var energy = r.result.energy;
+     document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
+     document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
+    }else{
+        location = "signin.html";
+    }
+   });
 }
-var balance = 56100
-var energy = 1000
- document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
- document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
+
 
 
 var h = false;
