@@ -26,6 +26,8 @@ var aniTap = setInterval(function(){
         document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
         tapAni = false;
         moved = 270;
+        energy -= 5;
+        document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
     } 
     }
     
@@ -49,7 +51,35 @@ function animateAdd(x){
 }
  
 
+
+
 var balance = 56100
- 
+var energy = 1000
  document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
+ document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
+
+
+var h = false;
+ if(h){
+    var scroll = document.getElementsByTagName("body")[0];
+     var msgs = document.getElementsByClassName("msg-holder");
+     
+     var inp = document.getElementById("app-footer");
+     
+     
+     scroll.onscroll = function(){
+     
+     //msgs[3].getBoundingClientRect().top 
+     for(let i = 0; i < msgs.length ; i++){
+     var below = inp.getBoundingClientRect().bottom - msgs[i].clientHeight;
+     
+     var above = inp.getBoundingClientRect().bottom - (msgs[i].clientHeight *2);
+    // console.log(msgs[i].offsetTop)
+     if(below > msgs[i].getBoundingClientRect().top && above < msgs[i].getBoundingClientRect().top){
+     msgs[i].style.color ="green";
+     } 
+     }
+     
+     }
+ }
     }    

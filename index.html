@@ -19,6 +19,7 @@
 <meta name="robots" content="index, follow">
 
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
      <div id="app">
@@ -26,7 +27,7 @@
        <div id="app-content">
          <div id="header"> 
           <div>Lion</div>
-          <div>Logout</div>
+          <div><a href="signin.html">Logout</a></div>
          </div>
          <div id="earn">
              <b>Balance</b>
@@ -54,17 +55,20 @@
              </div>
          </div>
         
-         
+         <div id="app-energy">
+            <div>Boost </div>
+            <div>Energy <b><span id="energy"></span>/1,000</b></div>
+        </div>
          
       </div>
       
       <div id="app-footer">
              <div><a href="./">
-                <i>logo</i><span>Home</span>
+                <i class="fa fa-home"></i><span>Home</span>
              </a></div>
-             <div><a href="./"><i>logo</i><span>Invest</span></a></div>
-             <div><a href="friends.html"><i>logo</i><span>Earn</span></a></div>
-             <div><a href="./"><i>logo</i><span>Chat</span></a></div>
+             <div><a href="./"><i class="fa fa-line-chart"></i><span>Invest</span></a></div>
+             <div><a href="friends.html"><i class="fa fa-usd"></i><span>Earn</span></a></div>
+             <div><a href="chat.html"><i class="fa fa-comment"></i><span>Chat</span></a></div>
       </div>
      </div>   
         <script src="script.js"></script>
