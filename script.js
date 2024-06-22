@@ -55,7 +55,7 @@ function animateAdd(x){
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
 if(parser.pathname == "/"){
-   fetch("https://doksocial.co/coin").then(r=>r.json()).then(r=>{
+   fetch("https://doksocial.co/coin/app").then(r=>r.json()).then(r=>{
     if(r.status){
     var balance = r.result.balance;
     var energy = r.result.energy;
