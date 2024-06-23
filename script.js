@@ -1,5 +1,3 @@
-window.onload = function(){
-
 var tapAni = false;
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
@@ -62,6 +60,8 @@ var energy = 0;
 var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
+
+alert(parser.pathname);
 if(parser.pathname == "/"){
    fetch("https://doksocial.co/coin/app").then(r=>r.json()).then(r=>{
     if(r.status){
@@ -107,4 +107,4 @@ var h = false;
      
      }
  }
-    }    
+       
