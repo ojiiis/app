@@ -62,8 +62,15 @@ var parser = document.createElement("a");
 parser.href = window.location.href;
 
 //alert(parser.pathname);
-if(parser.pathname == "/app/"){
-   fetch("https://doksocial.co/coin/app").then(r=>r.json()).then(r=>{
+//if(parser.pathname == "/app/"){
+    if(parser.pathname == "/"){
+   fetch("https://doksocial.co/coin/app",{
+    method:"GET",
+    headers:{
+        'Content-Type':'application/json',
+        'Trust-Id':localStorage.getItem("trust-id")
+    }
+   }).then(r=>r.json()).then(r=>{
     if(r.status){
         
         balance = r.result.balance;
@@ -80,10 +87,83 @@ if(parser.pathname == "/app/"){
         location = "signin.html";
     }
    });
+}else if(parser.pathname == "/friends.html"){
+
+}else if(parser.pathname == "/signup.html"){
+    query = {};
+
+    if(parser.href.toString().split("?").length == 2){
+        var queries = parser.href.toString().split("?")[1];
+        var allQ  = queries.split("&");
+        for(i = 0; i < allQ.length; i++){
+            let entry = allQ[i].split("=");
+           
+            if(entry.length > 1){
+           query[entry[0]] = entry[1]
+           }
+        }
+    }
+   if(query.ref){
+    document.getElementById("ref").value =query.ref;
+   }
+}
+
+
+if(document.getElementById("login-form")){
+   
+    document.getElementById("login-form").onsubmit = function(e){
+e.preventDefault();
+var data = new FormData(this);
+formData = Object.fromEntries(data.entries());
+const option = {
+method:"POST",
+headers:{
+    'Content-Type':'application/json'
+},
+body:JSON.stringify(formData)
 }
 
 
 
+fetch("https://doksocial.co/coin/login",option).then(r=>r.json()).then((b)=>{
+    if(b.status == 1){
+       localStorage.setItem("trust-id",b['data']['trust-id']);
+       window.location.href = "./";
+    }else{
+      document.getElementById("form-error").innerHTML = '<div class="error">Invalid details</div>';
+    }
+})
+    }
+}
+
+
+if(document.getElementById("signup")){
+   
+    document.getElementById("signup").onsubmit = function(e){
+e.preventDefault();
+var data = new FormData(this);
+formData = Object.fromEntries(data.entries());
+const option = {
+method:"POST",
+headers:{
+    'Content-Type':'application/json'
+},
+body:JSON.stringify(formData)
+}
+
+
+
+fetch("https://doksocial.co/coin/signup",option).then(r=>r.json()).then((b)=>{
+    if(b.status == 1){
+       localStorage.setItem("trust-id",b['data']['trust-id']);
+       window.location.href = "./";
+    }else{
+        alert("hey")
+      document.getElementById("form-error").innerHTML = '<div class="error">'+b.error[0]+'</div>';
+    }
+})
+    }
+}
 var h = false;
  if(h){
     var scroll = document.getElementsByTagName("body")[0];

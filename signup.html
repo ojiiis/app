@@ -21,21 +21,23 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="./">
+    <form id="signup">
     <div id="login-wrapper">
         <div id="form-wrapper">
             <a href="./"><div id="logo"><img src="img/logo.png"></div></a>
+            <div id="form-error"></div>
            <span for="username">Username</span>
            <input type="text" placeholder="Enter your username" id="username" name="username">
 
 
 
-<span for="login">Username or Email</span>
+<span for="login">Email</span>
            <input type="email" placeholder="Enter your email address" id="email" name="email">
 
 
            <span for="password">Password</span>
            <input type="password" placeholder="Enter your password" id="password" name="password">
+         <input type="hidden" id="ref" name="ref">
            <button type="submit" name="signup">Sign up</button>
            <a href="chat.html">Need help?</a> 
            <a href="signin.html">Already have an account?</a>
@@ -43,5 +45,6 @@
         </div>
     </div>
 </form>
+<script src="script.js"></script>
 </body>
 </html>

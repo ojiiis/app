@@ -305,3 +305,11 @@ margin-bottom: 40px;
          text-align:right;
          
         }
+
+        .error{
+           padding:5px 50px;
+            background: #e87705;
+            margin-bottom: 20px;
+            color:#f7f7f7;
+            border-radius:5px;
+        }

@@ -21,11 +21,12 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="./">
+    <form id="login-form">
     <div id="login-wrapper">
         <div id="form-wrapper">
             <a href="./"><div id="logo"><img src="img/logo.png"></div></a>
-           <span for="login">Username or Email</span>
+         <div id="form-error"></div>
+            <span for="login">Username or Email</span>
            <input type="text" placeholder="Enter your username or email address" id="login" name="login">
            <span for="password">Password</span>
            <input type="password" placeholder="Enter your password" id="password" name="password">
@@ -36,5 +37,6 @@
         </div>
     </div>
 </form>
+<script src="script.js"></script>
 </body>
 </html>
