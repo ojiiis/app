@@ -62,8 +62,8 @@ var parser = document.createElement("a");
 parser.href = window.location.href;
 
 //alert(parser.pathname);
-//if(parser.pathname == "/app/"){
-    if(parser.pathname == "/"){
+if(parser.pathname == "/app/"){
+   // if(parser.pathname == "/"){
         document.getElementById("loading").style.display = "flex";
    fetch("https://doksocial.co/coin/app",{
     method:"GET",
