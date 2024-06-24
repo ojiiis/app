@@ -158,16 +158,15 @@ body:JSON.stringify(formData)
 
 
 fetch("https://doksocial.co/coin/signup",option).then(r=>r.json()).then((b)=>{
-    //alert("sd")
+    
     if(b.status == 1){
        localStorage.setItem("trust-id",b['data']['trust-id']);
        window.location.href = "./";
-    }else{
-        alert("hey")
+    }else{  
       document.getElementById("form-error").innerHTML = '<div class="error">'+b.error[0]+'</div>';
     }
    
-})
+});
     }
 }
 var h = false;
