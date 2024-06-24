@@ -64,6 +64,7 @@ parser.href = window.location.href;
 //alert(parser.pathname);
 //if(parser.pathname == "/app/"){
     if(parser.pathname == "/"){
+        document.getElementById("loading").style.display = "flex";
    fetch("https://doksocial.co/coin/app",{
     method:"GET",
     headers:{
@@ -82,7 +83,7 @@ parser.href = window.location.href;
      document.getElementById("rph").innerText = new Intl.NumberFormat().format(r.result.rph);
      document.getElementById("user-level").innerText = r.result.level;
      document.getElementById("username").innerText = r.result.username;
-     
+     document.getElementById("loading").style.display = "none";
     }else{
         location = "signin.html";
     }
@@ -125,10 +126,13 @@ body:JSON.stringify(formData)
 
 
 
-fetch("https://doksocial.co/coin/login",option).then(r=>r.json()).then((b)=>{
+fetch("https://doksocial.co/coin/login",option).then(r=>{
+    return r.json();
+}).then((b)=>{
     if(b.status == 1){
-       localStorage.setItem("trust-id",b['data']['trust-id']);
+       localStorage.setItem("trust-id",b["data"]["session"]["sessionId"]);
        window.location.href = "./";
+      // console.log(localStorage.getItem("trust-id"))
     }else{
       document.getElementById("form-error").innerHTML = '<div class="error">Invalid details</div>';
     }
@@ -137,9 +141,9 @@ fetch("https://doksocial.co/coin/login",option).then(r=>r.json()).then((b)=>{
 }
 
 
-if(document.getElementById("signup")){
+if(document.getElementById("signup-form")){
    
-    document.getElementById("signup").onsubmit = function(e){
+    document.getElementById("signup-form").onsubmit = function(e){
 e.preventDefault();
 var data = new FormData(this);
 formData = Object.fromEntries(data.entries());
@@ -154,6 +158,7 @@ body:JSON.stringify(formData)
 
 
 fetch("https://doksocial.co/coin/signup",option).then(r=>r.json()).then((b)=>{
+    //alert("sd")
     if(b.status == 1){
        localStorage.setItem("trust-id",b['data']['trust-id']);
        window.location.href = "./";
@@ -161,6 +166,7 @@ fetch("https://doksocial.co/coin/signup",option).then(r=>r.json()).then((b)=>{
         alert("hey")
       document.getElementById("form-error").innerHTML = '<div class="error">'+b.error[0]+'</div>';
     }
+   
 })
     }
 }
