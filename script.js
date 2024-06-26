@@ -93,8 +93,8 @@ var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
 //alert(parser.pathname);
-//if(parser.pathname == "/app/"){
-    if(parser.pathname == "/" || parser.pathname == "/index.html"){
+if(parser.pathname == "/app/" || parser.pathname == "/index.html"){
+   // if(parser.pathname == "/" || parser.pathname == "/index.html"){
         document.getElementById("loading").style.display = "flex";
    fetch(root+"/app",{
     method:"GET",
