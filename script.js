@@ -1,4 +1,6 @@
 var tapAni = false;
+//const root = "https://doksocial.co/coin";
+const root = "http://localhost/coin";
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
@@ -16,23 +18,22 @@ var aniTap = setInterval(function(){
      moved -= 5;   
      if(moved < 270){
         clearInterval(aniTap);
-        var aA = document.createElement("div");
-        aA.classList.add("add-coin");
-        aA.innerText = `+${perClick}`;
-        tap.appendChild(aA);
-        animateAdd(aA);
-        balance += perClick;
-        document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
-        tapAni = false;
-        moved = 270;
-        energy -= 5;
-        document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
-       var body = new FormData();
-       body.append("data",`${balance},${energy}`);
-        fetch("https://doksocial.co/coin/tapped",{
-            method:"POST",
-            body:body
-        }).then(r=>r.text()).then(r=>console.log(r));
+        if(energy){
+            var aA = document.createElement("div");
+            aA.classList.add("add-coin");
+            aA.innerText = `+${perClick}`;
+            tap.appendChild(aA);
+            animateAdd(aA);
+            balance += perClick;
+            document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
+            tapAni = false;
+            moved = 270;
+            energy -= 5;
+            document.getElementById("energy-used").innerText = new Intl.NumberFormat().format(energy);
+           //run adding balance logic//
+            addAction();
+        }
+     
     } 
     }
     
@@ -43,6 +44,37 @@ var aniTap = setInterval(function(){
 });
 }
 
+var tapped = 0, lastTap;
+function addAction(){
+    tapped += 1;
+    lastTap = new Date().getTime();
+    setTimeout(function(){
+        sendAction();
+    },500);
+}
+var runAction;
+function sendAction(){
+    runAction = setInterval(function(){
+        now = new Date().getTime();
+    if((now - 1000 * 2) > lastTap && tapped > 0){
+        tap = tapped;
+        tapped = 0; 
+        lastTap = new Date().getTime();
+        fetch(root+"/tapped",{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json',
+            'Trust-Id':localStorage.getItem("trust-id")
+        },
+        body:JSON.stringify({
+           "tap":tap
+        })
+    }).then(r=>r.json()).then(r=>{
+        console.log(r)
+    });
+}
+},500)
+}
 function animateAdd(x){
    var limit = Math.floor((Math.random() * 150) + 40), s = 0;
   var aA =  setInterval(function(){
@@ -60,18 +92,18 @@ var energy = 0;
 var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
-
 //alert(parser.pathname);
-if(parser.pathname == "/app/"){
-   // if(parser.pathname == "/"){
+//if(parser.pathname == "/app/"){
+    if(parser.pathname == "/" || parser.pathname == "/index.html"){
         document.getElementById("loading").style.display = "flex";
-   fetch("https://doksocial.co/coin/app",{
+   fetch(root+"/app",{
     method:"GET",
     headers:{
         'Content-Type':'application/json',
         'Trust-Id':localStorage.getItem("trust-id")
     }
    }).then(r=>r.json()).then(r=>{
+    console.log(r);
     if(r.status){
         
         balance = r.result.balance;
@@ -82,10 +114,10 @@ if(parser.pathname == "/app/"){
      document.getElementById("energy-used").innerText = new Intl.NumberFormat().format(r.result.energy_used);
      document.getElementById("rph").innerText = new Intl.NumberFormat().format(r.result.rph);
      document.getElementById("user-level").innerText = r.result.level;
-     document.getElementById("username").innerText = r.result.username;
+     document.getElementById("username").innerText = r.result.username[0].toUpperCase()+r.result.username.slice(1);
      document.getElementById("loading").style.display = "none";
     }else{
-        location = "signin.html";
+       // location = "signin.html";
     }
    });
 }else if(parser.pathname == "/friends.html"){
@@ -126,13 +158,13 @@ body:JSON.stringify(formData)
 
 
 
-fetch("https://doksocial.co/coin/login",option).then(r=>{
+fetch(root+"/login",option).then(r=>{
     return r.json();
 }).then((b)=>{
+    console.log(b.data.session)
     if(b.status == 1){
-       localStorage.setItem("trust-id",b["data"]["session"]["sessionId"]);
+       localStorage.setItem("trust-id",b.data.session);
        window.location.href = "./";
-      // console.log(localStorage.getItem("trust-id"))
     }else{
       document.getElementById("form-error").innerHTML = '<div class="error">Invalid details</div>';
     }
@@ -144,6 +176,7 @@ fetch("https://doksocial.co/coin/login",option).then(r=>{
 if(document.getElementById("signup-form")){
    
     document.getElementById("signup-form").onsubmit = function(e){
+        
 e.preventDefault();
 var data = new FormData(this);
 formData = Object.fromEntries(data.entries());
@@ -155,18 +188,21 @@ headers:{
 body:JSON.stringify(formData)
 }
 
+fetch(root+"/signup",option).then(r=>r.json()).then(r=>{
+if(r.status){
+    localStorage.setItem("trust-id",b['data']['trust-id']);
+    window.location.href = "./";
+}else{
+    document.getElementById("form-error").innerHTML = '<div class="error">'+r.error[0]+'</div>';
+}
 
-
-fetch("https://doksocial.co/coin/signup",option).then(r=>r.json()).then((b)=>{
-    
-    if(b.status == 1){
-       localStorage.setItem("trust-id",b['data']['trust-id']);
-       window.location.href = "./";
-    }else{  
-      document.getElementById("form-error").innerHTML = '<div class="error">'+b.error[0]+'</div>';
-    }
-   
 });
+
+
+
+
+
+
     }
 }
 var h = false;
