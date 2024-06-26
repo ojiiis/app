@@ -93,7 +93,7 @@ var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
 alert(parser.pathname);
-if(parser.pathname == "/app/" || parser.pathname == "/index.html"){
+if(parser.pathname == "/app/" || parser.pathname == "/app/index.html"){
    // if(parser.pathname == "/" || parser.pathname == "/index.html"){
         document.getElementById("loading").style.display = "flex";
    fetch(root+"/app",{
@@ -120,7 +120,7 @@ if(parser.pathname == "/app/" || parser.pathname == "/index.html"){
         location = "signin.html";
     }
    });
-}else if(parser.pathname == "/friends.html"){
+}else if(parser.pathname == "/friends.html" || parser.pathname == "/app/friends.html"){
     document.getElementById("loading").style.display = "flex";
 fetch(root+"/friends",{
     method:"GET",
@@ -132,7 +132,7 @@ fetch(root+"/friends",{
 document.getElementById("ref-url").value = "https://trust-coin.github.io/app?ref="+r.id
 document.getElementById("loading").style.display = "none";
 });
-}else if(parser.pathname == "/signup.html"){
+}else if(parser.pathname == "/signup.html" || parser.pathname == "/app/signup.html"){
     query = {};
 
     if(parser.href.toString().split("?").length == 2){
@@ -149,7 +149,7 @@ document.getElementById("loading").style.display = "none";
    if(query.ref){
     document.getElementById("ref").value =query.ref;
    }
-}else if(parser.pathname == "/chat.html"){
+}else if(parser.pathname == "/chat.html" || parser.pathname == "/app/chat.html"){
     document.getElementById("loading").style.display = "flex";
 fetch(root+"/support",{
     method:"GET",
