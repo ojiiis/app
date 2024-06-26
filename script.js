@@ -92,7 +92,7 @@ var energy = 0;
 var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
-//alert(parser.pathname);
+alert(parser.pathname);
 if(parser.pathname == "/app/" || parser.pathname == "/index.html"){
    // if(parser.pathname == "/" || parser.pathname == "/index.html"){
         document.getElementById("loading").style.display = "flex";
