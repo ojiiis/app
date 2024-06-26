@@ -107,21 +107,31 @@ parser.href = window.location.href;
     if(r.status){
         
         balance = r.result.balance;
-        energy = r.result.energy;
+        energy = r.result.energy_used;
         perClick = r.result.per_click;
      document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
-     document.getElementById("energy").innerText = new Intl.NumberFormat().format(energy);
+     document.getElementById("energy").innerText = new Intl.NumberFormat().format(r.result.energy);
      document.getElementById("energy-used").innerText = new Intl.NumberFormat().format(r.result.energy_used);
      document.getElementById("rph").innerText = new Intl.NumberFormat().format(r.result.rph);
      document.getElementById("user-level").innerText = r.result.level;
      document.getElementById("username").innerText = r.result.username[0].toUpperCase()+r.result.username.slice(1);
      document.getElementById("loading").style.display = "none";
     }else{
-       // location = "signin.html";
+        location = "signin.html";
     }
    });
 }else if(parser.pathname == "/friends.html"){
-
+    document.getElementById("loading").style.display = "flex";
+fetch(root+"/friends",{
+    method:"GET",
+    headers:{
+        'Content-Type':'application/json',
+        'Trust-Id':localStorage.getItem("trust-id")
+    }
+   }).then(r=>r.json()).then(r=>{
+document.getElementById("ref-url").value = "https://trust-coin.github.io/app?ref="+r.id
+document.getElementById("loading").style.display = "none";
+});
 }else if(parser.pathname == "/signup.html"){
     query = {};
 

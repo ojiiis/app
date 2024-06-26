@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <div id="loading"><img src="img/loading.gif"></div>
      <div id="app">
          
         <div id="app-content">
@@ -46,7 +47,7 @@
             </div>
             </div>
             <div id="ref-link">
-            <input type="text" value="https://trust-coin.github.io/app" id="ref-url" readonly><button onclick="copyToClipboard()">Copy</button>
+            <input type="text" value="" id="ref-url" readonly><button onclick="copyToClipboard()">Copy</button>
             </div>
             <small>Copy and share your link with friends, Tell your friends about TrustCoin.</small>
             
@@ -64,6 +65,7 @@
      </div>   
         <script src="script.js"></script>
         <script>
+        
             function copyToClipboard() {
     const inputText = document.getElementById("ref-url");
     inputText.select();
