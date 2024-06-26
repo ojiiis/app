@@ -1,6 +1,6 @@
 var tapAni = false;
-//const root = "https://doksocial.co/coin";
-const root = "http://localhost/coin";
+const root = "https://doksocial.co/coin";
+//const root = "http://localhost/coin";
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
@@ -149,6 +149,18 @@ document.getElementById("loading").style.display = "none";
    if(query.ref){
     document.getElementById("ref").value =query.ref;
    }
+}else if(parser.pathname == "/chat.html"){
+    document.getElementById("loading").style.display = "flex";
+fetch(root+"/support",{
+    method:"GET",
+    headers:{
+        'Content-Type':'application/json',
+        'Trust-Id':localStorage.getItem("trust-id")
+    }
+   }).then(r=>r.json()).then(r=>{
+    console.log(r);
+document.getElementById("loading").style.display = "none";
+});
 }
 
 
@@ -200,7 +212,7 @@ body:JSON.stringify(formData)
 
 fetch(root+"/signup",option).then(r=>r.json()).then(r=>{
 if(r.status){
-    localStorage.setItem("trust-id",b['data']['trust-id']);
+    localStorage.setItem("trust-id",r['data']['trust-id']);
     window.location.href = "./";
 }else{
     document.getElementById("form-error").innerHTML = '<div class="error">'+r.error[0]+'</div>';
