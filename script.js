@@ -250,6 +250,14 @@ if(r.status){
 
     }
 }
+
+if(document.getElementById("send-msg")){
+    document.getElementById("send-msg").onclick = function(){
+        var text = document.getElementById("message").value;
+        document.getElementById("message").value = "";
+        
+    }
+}
 var h = false;
  if(h){
     var scroll = document.getElementsByTagName("body")[0];
