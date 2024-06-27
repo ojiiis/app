@@ -1,6 +1,6 @@
 var tapAni = false;
-const root = "https://doksocial.co/coin";
-//const root = "http://localhost/coin";
+//const root = "https://doksocial.co/coin";
+const root = "http://localhost/coin";
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
@@ -93,8 +93,8 @@ var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
 //alert(parser.pathname);
-if(parser.pathname == "/app/" || parser.pathname == "/app/index.html"){
-   // if(parser.pathname == "/" || parser.pathname == "/index.html"){
+//if(parser.pathname == "/app/" || parser.pathname == "/app/index.html"){
+    if(parser.pathname == "/app/" || parser.pathname == "/app/index.html" || parser.pathname == "/" || parser.pathname == "/index.html"){
         document.getElementById("loading").style.display = "flex";
    fetch(root+"/app",{
     method:"GET",
@@ -158,7 +158,27 @@ fetch(root+"/support",{
         'Trust-Id':localStorage.getItem("trust-id")
     }
    }).then(r=>r.json()).then(r=>{
-    console.log(r);
+    var messageList = "";
+    for(let i = 0; i < r.length; i++){
+
+        switch(r[i].user_id){
+            case "trust-coin":
+                messageList += `<div class="msg-holder">
+ <div class="msg">${r[i].message}</div>
+ <small class="time">${Date(r[i].date * 1000).toString().split("GMT")[0]}</small>
+ </div> `;
+            break;
+            default:
+  messageList += ` <!div class="msg-holder user">
+ <div class="msg">${r[i].message}</div>
+ <div class="cf"></div>
+ <small class="time">${Date(r[i].date * 1000).toString().split("GMT")[0]} . sent</small>
+ 
+ </div> 
+<div class="cf"></div> `;
+        }
+    }
+    document.getElementById("app-body").innerHTML = messageList;
 document.getElementById("loading").style.display = "none";
 });
 }
@@ -168,6 +188,7 @@ if(document.getElementById("login-form")){
    
     document.getElementById("login-form").onsubmit = function(e){
 e.preventDefault();
+document.getElementById("loading").style.display = "flex";
 var data = new FormData(this);
 formData = Object.fromEntries(data.entries());
 const option = {
@@ -183,7 +204,8 @@ body:JSON.stringify(formData)
 fetch(root+"/login",option).then(r=>{
     return r.json();
 }).then((b)=>{
-    console.log(b.data.session)
+    document.getElementById("loading").style.display = "none";
+
     if(b.status == 1){
        localStorage.setItem("trust-id",b.data.session);
        window.location.href = "./";
@@ -198,7 +220,7 @@ fetch(root+"/login",option).then(r=>{
 if(document.getElementById("signup-form")){
    
     document.getElementById("signup-form").onsubmit = function(e){
-        
+        document.getElementById("loading").style.display = "flex";      
 e.preventDefault();
 var data = new FormData(this);
 formData = Object.fromEntries(data.entries());
@@ -211,6 +233,7 @@ body:JSON.stringify(formData)
 }
 
 fetch(root+"/signup",option).then(r=>r.json()).then(r=>{
+document.getElementById("loading").style.display = "none";
 if(r.status){
     localStorage.setItem("trust-id",r['data']['trust-id']);
     window.location.href = "./";

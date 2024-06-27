@@ -262,7 +262,7 @@ margin-bottom: 40px;
          display:flex;
          justify-content:space-between;
          align-items:center;
-         padding:0 20px;
+         padding:0 10px;
          border-radius:10px;
          border:1px solid #ddd;
         }
@@ -272,9 +272,10 @@ margin-bottom: 40px;
          outline:none;
          }
          
-         #chat-app-footer div ojicon{
+         #chat-app-footer div img{
          width:8%;
-         }#app-body{
+         }
+         #app-body{
          padding:70px 20px;
          background:#f7f7f7;
         }#app-header-left{
