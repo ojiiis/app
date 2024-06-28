@@ -170,7 +170,7 @@ fetch(root+"/support",{
  </div> `;
             break;
             default:
-  messageList += ` <!div class="msg-holder user">
+  messageList += ` <div class="msg-holder user">
  <div class="msg">${r[i].message}</div>
  <div class="cf"></div>
  <small class="time">${Date(r[i].date * 1000).toString().split("GMT")[0]} . sent</small>
@@ -234,6 +234,7 @@ body:JSON.stringify(formData)
 }
 
 fetch(root+"/signup",option).then(r=>r.json()).then(r=>{
+    console.log(r);
 document.getElementById("loading").style.display = "none";
 if(r.status){
     localStorage.setItem("trust-id",r['data']['trust-id']);
@@ -251,22 +252,47 @@ if(r.status){
 
     }
 }
-
+//document.getElementsByTagName("body")[0].scrollTo(0,"953px")
+//console.log(document.getElementsByTagName("body")[0].scrollHeight);
+//console.log(document.getElementById("app-body").scrollHeight);
 if(document.getElementById("send-msg")){
     document.getElementById("send-msg").onclick = function(){
         var text = document.getElementById("message").value;
         document.getElementById("message").value = "";
-        fetch(root+"/contact-support",{
+        if(text){
+       var  messageList = `<div class="msg-holder user">
+        <div class="msg">${text}</div>
+        <div class="cf"></div>
+        <small class="time">${new Date().toString().split("GMT")[0]} . sent</small>
+        
+        </div> 
+       <div class="cf"></div> `;
+       document.getElementById("app-body").innerHTML =  document.getElementById("app-body").innerHTML + messageList;
+       document.getElementsByTagName("body")[0].scrollTop  = document.getElementsByTagName("body")[0].scrollHeight;
+       document.getElementById("message").disabled = true;
+      
+       fetch(root+"/contact-support",{
             method:"POST",
             headers:{
-'Trust-Id':localStorage.getItem("trust-id")
+           'Trust-Id':localStorage.getItem("trust-id")
             },
             body:JSON.stringify({
                 text
             })
         })
         .then(r=>r.json())
-        .then(r=>r.console.log());
+        .then(r=>{
+            setTimeout(function(){
+                
+                var messageListNw = `<div class="msg-holder">
+                <div class="msg">Your messaged has been accepted and sent to our support team. you will get a response from use as soon as possible and if you have further help kindly respond with a message.</div>
+                <small class="time">${new Date().toString().split("GMT")[0]}</small>
+                </div> `;
+                document.getElementById("app-body").innerHTML =  document.getElementById("app-body").innerHTML + messageListNw;
+                document.getElementById("message").disabled = false;
+            },2000)
+        });
+    }
     }
 }
 
