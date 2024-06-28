@@ -129,7 +129,8 @@ fetch(root+"/friends",{
         'Trust-Id':localStorage.getItem("trust-id")
     }
    }).then(r=>r.json()).then(r=>{
-document.getElementById("ref-url").value = "https://trust-coin.github.io/app?ref="+r.id
+document.getElementById("totalFriends").innerText = r.total_friend;
+document.getElementById("ref-url").value = "https://trust-coin.github.io/app/signup.html?ref="+r.id
 document.getElementById("loading").style.display = "none";
 });
 }else if(parser.pathname == "/signup.html" || parser.pathname == "/app/signup.html"){
@@ -255,9 +256,21 @@ if(document.getElementById("send-msg")){
     document.getElementById("send-msg").onclick = function(){
         var text = document.getElementById("message").value;
         document.getElementById("message").value = "";
-        
+        fetch(root+"/contact-support",{
+            method:"POST",
+            headers:{
+'Trust-Id':localStorage.getItem("trust-id")
+            },
+            body:JSON.stringify({
+                text
+            })
+        })
+        .then(r=>r.json())
+        .then(r=>r.console.log());
     }
 }
+
+
 var h = false;
  if(h){
     var scroll = document.getElementsByTagName("body")[0];
