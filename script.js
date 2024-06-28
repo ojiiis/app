@@ -1,6 +1,6 @@
 var tapAni = false;
-const root = "https://doksocial.co/coin";
-//const root = "http://localhost/coin";
+//const root = "https://doksocial.co/coin";
+const root = "http://localhost/coin";
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
@@ -219,38 +219,27 @@ fetch(root+"/login",option).then(r=>{
 
 
 if(document.getElementById("signup-form")){
-   
-    document.getElementById("signup-form").onsubmit = function(e){
-        document.getElementById("loading").style.display = "flex";      
+    document.getElementById("signup-form").addEventListener("submit",function(e){
 e.preventDefault();
+document.getElementById("loading").style.display = "flex";
 var data = new FormData(this);
 formData = Object.fromEntries(data.entries());
-const option = {
-method:"POST",
-headers:{
-    'Content-Type':'application/json'
-},
-body:JSON.stringify(formData)
-}
+fetch(root+"/signup",{
+       method:"POST",
+       body:JSON.stringify(formData)
+}).then(r=>r.json()).then((r)=>{
+           if(r.status){
+                localStorage.setItem("trust-id",r['data']['trust-id']);
+                window.location.href = "./";
+            }else{
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("form-error").innerHTML = '<div class="error">'+r.error[0]+'</div>';
+            }
+    
+})
 
-fetch(root+"/signup",option).then(r=>r.json()).then(r=>{
-    console.log(r);
-document.getElementById("loading").style.display = "none";
-if(r.status){
-    localStorage.setItem("trust-id",r['data']['trust-id']);
-    window.location.href = "./";
-}else{
-    document.getElementById("form-error").innerHTML = '<div class="error">'+r.error[0]+'</div>';
-}
-
-});
-
-
-
-
-
-
-    }
+    });
+   
 }
 //document.getElementsByTagName("body")[0].scrollTo(0,"953px")
 //console.log(document.getElementsByTagName("body")[0].scrollHeight);
