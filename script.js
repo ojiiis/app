@@ -1,6 +1,6 @@
 var tapAni = false;
-//const root = "https://doksocial.co/coin";
-const root = "http://localhost/coin";
+const root = "https://doksocial.co/coin";
+//const root = "http://localhost/coin";
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
