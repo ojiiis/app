@@ -1,6 +1,6 @@
 var tapAni = false;
-const root = "https://doksocial.co/coin";
-//const root = "http://localhost/coin";
+//const root = "https://doksocial.co/coin";
+const root = "http://localhost/coin";
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
@@ -181,6 +181,8 @@ fetch(root+"/support",{
     }
     document.getElementById("app-body").innerHTML = messageList;
 document.getElementById("loading").style.display = "none";
+var mm = document.getElementsByClassName("msg-holder")[document.getElementsByClassName("msg-holder").length - 1];
+mm.scrollIntoView();
 });
 }
 
@@ -221,6 +223,7 @@ fetch(root+"/login",option).then(r=>{
 if(document.getElementById("signup-form")){
     document.getElementById("signup-form").addEventListener("submit",function(e){
 e.preventDefault();
+document.getElementById("form-error").innerHTML = "";
 document.getElementById("loading").style.display = "flex";
 var data = new FormData(this);
 formData = Object.fromEntries(data.entries());
@@ -232,8 +235,12 @@ fetch(root+"/signup",{
                 localStorage.setItem("trust-id",r['data']['trust-id']);
                 window.location.href = "./";
             }else{
+                
+                for(let i = 0; i < r.error.length; i++){
+                    document.getElementById("form-error").innerHTML = document.getElementById("form-error").innerHTML + '<div class="error">'+r.error[i]+'</div>';
+                }
                 document.getElementById("loading").style.display = "none";
-                document.getElementById("form-error").innerHTML = '<div class="error">'+r.error[0]+'</div>';
+                
             }
     
 })
@@ -257,9 +264,9 @@ if(document.getElementById("send-msg")){
         </div> 
        <div class="cf"></div> `;
        document.getElementById("app-body").innerHTML =  document.getElementById("app-body").innerHTML + messageList;
-       document.getElementsByTagName("body")[0].scrollTop  = document.getElementsByTagName("body")[0].scrollHeight;
        document.getElementById("message").disabled = true;
-      
+       var mm = document.getElementsByClassName("msg-holder")[document.getElementsByClassName("msg-holder").length - 1];
+       mm.scrollIntoView();
        fetch(root+"/contact-support",{
             method:"POST",
             headers:{
@@ -279,12 +286,13 @@ if(document.getElementById("send-msg")){
                 </div> `;
                 document.getElementById("app-body").innerHTML =  document.getElementById("app-body").innerHTML + messageListNw;
                 document.getElementById("message").disabled = false;
+                var mm = document.getElementsByClassName("msg-holder")[document.getElementsByClassName("msg-holder").length - 1];
+                 mm.scrollIntoView();
             },2000)
         });
     }
     }
 }
-
 
 var h = false;
  if(h){
