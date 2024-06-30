@@ -281,7 +281,7 @@ if(document.getElementById("send-msg")){
             setTimeout(function(){
                 
                 var messageListNw = `<div class="msg-holder">
-                <div class="msg">Your messaged has been accepted and sent to our support team. you will get a response from use as soon as possible and if you have further help kindly respond with a message.</div>
+                <div class="msg">Your messaged has been accepted and sent to our support team. you will get a response from use as soon as possible and if you need further help kindly respond with a message.</div>
                 <small class="time">${new Date().toString().split("GMT")[0]}</small>
                 </div> `;
                 document.getElementById("app-body").innerHTML =  document.getElementById("app-body").innerHTML + messageListNw;
