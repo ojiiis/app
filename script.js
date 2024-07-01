@@ -1,6 +1,15 @@
 var tapAni = false;
 const root = "https://doksocial.co/coin";
 //const root = "http://localhost/coin";
+function k(n){
+    if(n > 1000){
+        var t = n/1000;
+        var t = (t % 1 === 0)?t:t.toString().split(".")[0]+"."+t.toString().split(".")[1][0]
+        return t+"k";
+    }else if(n > 1000000){
+        return n.toString()[0]+"m";
+    }
+}
 if(document.getElementById("tap-box")){
 document.getElementById("tap-box").addEventListener("click",function(){
 if(tapAni)
@@ -113,7 +122,9 @@ parser.href = window.location.href;
      document.getElementById("energy").innerText = new Intl.NumberFormat().format(r.result.energy);
      document.getElementById("energy-used").innerText = new Intl.NumberFormat().format(r.result.energy_used);
      document.getElementById("rph").innerText = new Intl.NumberFormat().format(r.result.rph);
-     document.getElementById("user-level").innerText = r.result.level;
+     document.getElementById("user-level").innerText = r.levelup.level;
+     document.getElementById("level-bar").style.width = r.levelup.bar+"%";
+     document.getElementById("levelname").innerText = r.levelup.name;
      document.getElementById("username").innerText = r.result.username[0].toUpperCase()+r.result.username.slice(1);
      document.getElementById("loading").style.display = "none";
     }else{
@@ -129,6 +140,13 @@ fetch(root+"/friends",{
         'Trust-Id':localStorage.getItem("trust-id")
     }
    }).then(r=>r.json()).then(r=>{
+    var fr ='';
+
+    for(let i = 0; i < r.friends.length; i++){
+       
+        fr += `<div class="friends"><b>${r.friends[i].username}</b> <p><img src="img/logo-b.png" width="10px"><small id="f-bal">${k(r.friends[i].balance)}</small></p></div>`;
+    }
+document.getElementById("friends").innerHTML = fr;        
 document.getElementById("totalFriends").innerText = r.total_friend;
 document.getElementById("ref-url").value = "https://trust-coin.github.io/app/signup.html?ref="+r.id
 document.getElementById("loading").style.display = "none";

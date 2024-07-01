@@ -155,7 +155,11 @@ margin:auto;
     font-size:200px;
 }
 
-
+.friends{
+    display:flex;
+    justify-content: space-between;
+    margin:5px 0;
+}
 
 .center-content{  display:flex;  flex-direction:column;  justify-content:center;  align-items:center;}
 #ref-link{ width:99%; overflow:hidden; margin-top:20px; margin-bottom: 10px; border:1px solid lightgreen;}
