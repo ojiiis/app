@@ -1,5 +1,5 @@
 var tapAni = false;
-const root = "https://doksocial.co/coin";
+const root = "http://localhost:8080";
 //const root = "http://localhost/coin";
 function k(n){
     if(n > 1000){
@@ -101,113 +101,10 @@ var energy = 0;
 var perClick = 0;
 var parser = document.createElement("a"); 
 parser.href = window.location.href;
-//alert(parser.pathname);
-//if(parser.pathname == "/app/" || parser.pathname == "/app/index.html"){
-    if(parser.pathname == "/app/" || parser.pathname == "/app/index.html" || parser.pathname == "/" || parser.pathname == "/index.html"){
-        document.getElementById("loading").style.display = "flex";
-   fetch(root+"/app",{
-    method:"GET",
-    headers:{
-        'Content-Type':'application/json',
-        'Trust-Id':localStorage.getItem("trust-id")
-    }
-   }).then(r=>r.json()).then(r=>{
-    console.log(r);
-    if(r.status){
-        
-        balance = r.result.balance;
-        energy = r.result.energy_used;
-        perClick = r.result.per_click;
-     document.getElementById("bal").innerText = new Intl.NumberFormat().format(balance);
-     document.getElementById("energy").innerText = new Intl.NumberFormat().format(r.result.energy);
-     document.getElementById("energy-used").innerText = new Intl.NumberFormat().format(r.result.energy_used);
-     document.getElementById("rph").innerText = new Intl.NumberFormat().format(r.result.rph);
-     document.getElementById("user-level").innerText = r.levelup.level;
-     document.getElementById("level-bar").style.width = r.levelup.bar+"%";
-     document.getElementById("levelname").innerText = r.levelup.name;
-     document.getElementById("username").innerText = r.result.username[0].toUpperCase()+r.result.username.slice(1);
-     document.getElementById("loading").style.display = "none";
-    }else{
-        location = "signin.html";
-    }
-   });
-}else if(parser.pathname == "/friends.html" || parser.pathname == "/app/friends.html"){
-    document.getElementById("loading").style.display = "flex";
-fetch(root+"/friends",{
-    method:"GET",
-    headers:{
-        'Content-Type':'application/json',
-        'Trust-Id':localStorage.getItem("trust-id")
-    }
-   }).then(r=>r.json()).then(r=>{
-    var fr ='';
-
-    for(let i = 0; i < r.friends.length; i++){
-       
-        fr += `<div class="friends"><b>${r.friends[i].username}</b> <p><img src="img/logo-b.png" width="10px"><small id="f-bal">${k(r.friends[i].balance)}</small></p></div>`;
-    }
-document.getElementById("friends").innerHTML = fr;        
-document.getElementById("totalFriends").innerText = r.total_friend;
-document.getElementById("ref-url").value = "https://trust-coin.github.io/app/signup.html?ref="+r.id
-document.getElementById("loading").style.display = "none";
-});
-}else if(parser.pathname == "/signup.html" || parser.pathname == "/app/signup.html"){
-    query = {};
-
-    if(parser.href.toString().split("?").length == 2){
-        var queries = parser.href.toString().split("?")[1];
-        var allQ  = queries.split("&");
-        for(i = 0; i < allQ.length; i++){
-            let entry = allQ[i].split("=");
-           
-            if(entry.length > 1){
-           query[entry[0]] = entry[1]
-           }
-        }
-    }
-   if(query.ref){
-    document.getElementById("ref").value =query.ref;
-   }
-}else if(parser.pathname == "/chat.html" || parser.pathname == "/app/chat.html"){
-    document.getElementById("loading").style.display = "flex";
-fetch(root+"/support",{
-    method:"GET",
-    headers:{
-        'Content-Type':'application/json',
-        'Trust-Id':localStorage.getItem("trust-id")
-    }
-   }).then(r=>r.json()).then(r=>{
-    var messageList = "";
-    for(let i = 0; i < r.length; i++){
-
-        switch(r[i].user_id){
-            case "trust-coin":
-                messageList += `<div class="msg-holder">
- <div class="msg">${r[i].message}</div>
- <small class="time">${Date(r[i].date * 1000).toString().split("GMT")[0]}</small>
- </div> `;
-            break;
-            default:
-  messageList += ` <div class="msg-holder user">
- <div class="msg">${r[i].message}</div>
- <div class="cf"></div>
- <small class="time">${Date(r[i].date * 1000).toString().split("GMT")[0]} . sent</small>
- 
- </div> 
-<div class="cf"></div> `;
-        }
-    }
-    document.getElementById("app-body").innerHTML = messageList;
-document.getElementById("loading").style.display = "none";
-var mm = document.getElementsByClassName("msg-holder")[document.getElementsByClassName("msg-holder").length - 1];
-mm.scrollIntoView();
-});
-}
 
 
 if(document.getElementById("login-form")){
-   
-    document.getElementById("login-form").onsubmit = function(e){
+document.getElementById("login-form").onsubmit = function(e){
 e.preventDefault();
 document.getElementById("loading").style.display = "flex";
 var data = new FormData(this);
@@ -225,10 +122,10 @@ body:JSON.stringify(formData)
 fetch(root+"/login",option).then(r=>{
     return r.json();
 }).then((b)=>{
+    console.log(b)
     document.getElementById("loading").style.display = "none";
 
     if(b.status == 1){
-       localStorage.setItem("trust-id",b.data.session);
        window.location.href = "./";
     }else{
       document.getElementById("form-error").innerHTML = '<div class="error">Invalid details</div>';
